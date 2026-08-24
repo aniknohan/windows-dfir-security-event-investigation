@@ -615,6 +615,34 @@ The evidence collection is organized so that a reviewer can move from the visual
 
 ---
 
+# 📂 Complete Investigation Access
+
+The repository separates the visual evidence, evidence explanations, analytical findings, and reconstructed timeline so that the investigation can be reviewed systematically.
+
+| Resource | Purpose |
+|---|---|
+| 📸 [137 Evidence Screenshots](evidence/screenshots/) | Complete numbered visual evidence collection |
+| 📝 [Evidence Notes](evidence/evidence-notes.md) | Explanations and forensic context for the 137 screenshots |
+| 🔎 [Investigation Findings](analysis/investigation-findings.md) | Consolidated analytical findings |
+| 🕒 [Security Event Timeline](analysis/security-event-timeline.md) | Reconstructed chronological activity |
+
+### Recommended Review Order
+
+```text
+README
+  ↓
+Evidence Notes
+  ↓
+137 Evidence Screenshots
+  ↓
+Investigation Findings
+  ↓
+Security Event Timeline
+  ↓
+Final Assessment
+
+---
+
 # 📸 Evidence Coverage
 
 The 137 screenshots document the investigation across the following areas:

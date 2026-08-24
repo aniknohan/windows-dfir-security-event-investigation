@@ -15,6 +15,7 @@ At `13:25:37`, Windows recorded several account-management events involving `DFI
 - Event ID 4720 — account created
 - Event ID 4722 — account enabled
 - Event ID 4724 — password reset attempted
+- Event ID 4728 — security-enabled global group membership changed
 - Event ID 4732 — account added to the Builtin Users group
 - Event ID 4738 — account changed
 

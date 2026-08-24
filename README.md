@@ -574,13 +574,44 @@ Analyst Interpretation
 
 ## 137 Investigation Screenshots
 
-The project contains **137 screenshots** documenting the investigation from artifact collection through analysis and evidence verification.
+The project contains **137 numbered evidence screenshots** documenting the investigation from initial artifact collection through Windows Security Event analysis, forensic artifact correlation, timeline reconstruction, and evidence-integrity verification.
 
-All screenshots are preserved in:
+The screenshots are preserved in the repository as the primary visual evidence record.
 
-➡️ **[📸 VIEW ALL 137 EVIDENCE SCREENSHOTS](evidence/screenshots/)**
+### 📸 Complete Evidence Collection
 
-This is the complete GitHub evidence directory.
+➡️ **[VIEW ALL 137 EVIDENCE SCREENSHOTS](evidence/screenshots/)**
+
+This directory contains the complete numbered screenshot collection from `01` through `137`.
+
+### 📝 Evidence Explanations
+
+Each evidence item is documented with its investigative purpose, what is visible in the screenshot, and how the evidence contributes to the overall investigation.
+
+➡️ **[READ THE COMPLETE EVIDENCE NOTES FOR ALL 137 SCREENSHOTS](evidence/evidence-notes.md)**
+
+The evidence notes provide the written explanation and forensic context for the numbered screenshots.
+
+### 🔗 Evidence → Explanation
+
+The evidence collection is organized so that a reviewer can move from the visual artifact to its corresponding explanation:
+
+```text
+137 Numbered Screenshots
+        │
+        ├── 01 → Evidence explanation
+        ├── 02 → Evidence explanation
+        ├── 03 → Evidence explanation
+        ├── ...
+        ├── 135 → Evidence explanation
+        ├── 136 → Evidence explanation
+        └── 137 → Evidence explanation
+                 │
+                 ▼
+          Forensic Interpretation
+                 │
+                 ▼
+          Investigation Findings
 
 ---
 

@@ -605,13 +605,13 @@ The evidence documentation follows the same numbering system as the screenshot f
 
 | Evidence | Screenshot | Documentation |
 |---|---|---|
-| 001 | `01-windows-dfir-lab-directory-structure.png` | Evidence 001 |
-| 002 | `02-evidence-artifact-inventory.png` | Evidence 002 |
-| 003 | `03-prefetch-artifact-inventory.png` | Evidence 003 |
+| 001 | [`01-windows-dfir-lab-directory-structure.png`](evidence/screenshots/01-windows-dfir-lab-directory-structure.png) | Evidence 001 |
+| 002 | [`02-evidence-artifact-inventory.png`](evidence/screenshots/02-evidence-artifact-inventory.png) | Evidence 002 |
+| 003 | [`03-prefetch-artifact-inventory.png`](evidence/screenshots/03-prefetch-artifact-inventory.png) | Evidence 003 |
 | ... | ... | ... |
-| 135 | `135-windows-dfir-lab-directory-tree-part-2.png` | Evidence 135 |
-| 136 | `136-zimmerman-tools-correlated-execution-timeline.png` | Evidence 136 |
-| 137 | `137-zimmerman-tools-empty-directory-evidence.png` | Evidence 137 |
+| 135 | [`135-windows-dfir-lab-directory-tree-part-2.png`](evidence/screenshots/135-windows-dfir-lab-directory-tree-part-2.png) | Evidence 135 |
+| 136 | [`136-zimmerman-tools-correlated-execution-timeline.png`](evidence/screenshots/136-zimmerman-tools-correlated-execution-timeline.png) | Evidence 136 |
+| 137 | [`137-zimmerman-tools-empty-directory-evidence.png`](evidence/screenshots/137-zimmerman-tools-empty-directory-evidence.png) | Evidence 137 |
 
 > **Evidence navigation:** Open the evidence notes to review the explanation for each numbered artifact, then select the corresponding screenshot filename to open the original PNG evidence.
 

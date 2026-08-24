@@ -244,12 +244,14 @@ windows-dfir-security-event-investigation/
 │   └── security-event-timeline.md
 │
 └── evidence/
+    ├── evidence-notes.md
     └── screenshots/
         ├── 01-...
         ├── 02-...
         ├── ...
         ├── 136-...
         └── 137-...
+
 ```
 
 ---
@@ -657,7 +659,7 @@ Security Event Timeline
   ↓
 Final Assessment
 
----
+```
 
 # 📸 Evidence Coverage
 
@@ -688,65 +690,92 @@ The 137 screenshots document the investigation across the following areas:
 
 ---
 
-# 📂 Complete Evidence Access
+# 🔬 Recommended Evidence Review Path
 
-The screenshots are maintained separately from the analytical documents so that the evidence can be reviewed directly without making the main case narrative unnecessarily difficult to navigate.
+For reviewers examining this investigation for the first time, the recommended workflow is:
 
-### Primary Evidence
+### 01 — Understand the Case
 
-➡️ **[Open All 137 Screenshots](evidence/screenshots/)**
+Start with this README to understand the investigation scope, objectives, methodology, and evidence structure.
 
-### Findings
+### 02 — Review the Evidence Notes
+
+➡️ **[Open the 137-Screenshot Evidence Index](evidence/evidence-notes.md)**
+
+Use the evidence notes to understand what each numbered artifact documents before reviewing the underlying screenshot.
+
+### 03 — Inspect the Original Evidence
+
+➡️ **[Open All 137 Evidence Screenshots](evidence/screenshots/)**
+
+Review the original PNG screenshots supporting the investigation.
+
+The screenshots use the same numbering system as the Evidence Notes:
+
+`Evidence 001 → Screenshot 01`  
+`Evidence 002 → Screenshot 02`  
+`Evidence 003 → Screenshot 03`  
+`...`  
+`Evidence 137 → Screenshot 137`
+
+### 04 — Review the Analytical Findings
 
 ➡️ **[Open Investigation Findings](analysis/investigation-findings.md)**
 
-### Timeline
+Review the conclusions reconstructed from the collected evidence.
+
+### 05 — Follow the Reconstructed Timeline
 
 ➡️ **[Open Security Event Timeline](analysis/security-event-timeline.md)**
 
----
+Follow the chronological relationship between the major Windows Security events and the associated account activity.
 
-# 🔬 Recommended Evidence Review Path
+### 06 — Correlate the Evidence
 
-For someone reviewing this project for the first time:
+The investigation should be evaluated by correlating multiple artifacts rather than treating a single Windows event as independent proof of malicious activity.
 
-### 01 — Start Here
+Relevant evidence includes:
 
-Read this README to understand the investigation scope and methodology.
-
-### 02 — Review the Findings
-
-➡️ [Investigation Findings](analysis/investigation-findings.md)
-
-Review the documented analytical conclusions.
-
-### 03 — Review the Timeline
-
-➡️ [Security Event Timeline](analysis/security-event-timeline.md)
-
-Follow the chronological reconstruction.
-
-### 04 — Validate the Evidence
-
-➡️ [Open the 137 Evidence Screenshots](evidence/screenshots/)
-
-Review the underlying screenshots supporting the investigation.
-
-### 05 — Correlate
-
-Compare the evidence with:
-
-- Event IDs
+- Windows Security Event IDs
 - Timestamps
-- Account information
-- Logon ID
-- Browser artifacts
-- Execution artifacts
-- Windows forensic artifacts
-- ZimmermanTools evidence
-- Integrity evidence
+- Account identifiers
+- Logon IDs
+- Authentication events
+- Credential Manager activity
+- Cryptographic and key-management events
+- Account and group enumeration
+- Process creation evidence
+- PowerShell artifacts
+- Chrome browser artifacts
+- Download artifacts
+- Prefetch artifacts
+- LNK artifacts
+- Jump List artifacts
+- ZimmermanTools analysis
+- EVTX metadata
+- SHA-256 integrity evidence
+- Cross-artifact timeline correlation
 
 ---
+
+# 📊 Evidence-to-Analysis Relationship
+
+The investigation follows this relationship:
+
+```text
+137 Evidence Screenshots
+        ↓
+Evidence Notes
+        ↓
+Artifact Correlation
+        ↓
+Investigation Findings
+        ↓
+Security Event Timeline
+        ↓
+Final Assessment
+
+```
 
 # 🧠 Key Investigation Observations
 

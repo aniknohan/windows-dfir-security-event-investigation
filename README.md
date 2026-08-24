@@ -572,46 +572,62 @@ Analyst Interpretation
 
 # 🖼️ Evidence Collection
 
-## 137 Investigation Screenshots
+## 137 Numbered Investigation Screenshots
 
-The project contains **137 numbered evidence screenshots** documenting the investigation from initial artifact collection through Windows Security Event analysis, forensic artifact correlation, timeline reconstruction, and evidence-integrity verification.
+This repository contains **137 numbered forensic evidence screenshots** documenting the investigation from initial artifact collection through Security Event Log analysis, artifact correlation, timeline reconstruction, and evidence-integrity verification.
 
-The screenshots are preserved in the repository as the primary visual evidence record.
+Each screenshot is preserved in:
 
-### 📸 Complete Evidence Collection
+`evidence/screenshots/`
 
-➡️ **[VIEW ALL 137 EVIDENCE SCREENSHOTS](evidence/screenshots/)**
+The screenshots are numbered from **01 through 137** so that every visual artifact can be correlated with the corresponding evidence explanation.
 
-This directory contains the complete numbered screenshot collection from `01` through `137`.
+### 📸 Browse All 137 Screenshots
+
+➡️ **[Open the Complete 137-Screenshot Evidence Collection](evidence/screenshots/)**
+
+This opens the repository directory containing all numbered PNG evidence files.
 
 ### 📝 Evidence Explanations
 
-Each evidence item is documented with its investigative purpose, what is visible in the screenshot, and how the evidence contributes to the overall investigation.
+Every screenshot has a corresponding evidence entry explaining:
 
-➡️ **[READ THE COMPLETE EVIDENCE NOTES FOR ALL 137 SCREENSHOTS](evidence/evidence-notes.md)**
+- What the screenshot shows
+- Why the evidence matters
+- Its role in the investigation
+- The forensic context in which it should be interpreted
 
-The evidence notes provide the written explanation and forensic context for the numbered screenshots.
+➡️ **[Open the Complete 137-Screenshot Evidence Notes](evidence/evidence-notes.md)**
 
-### 🔗 Evidence → Explanation
+### 🔗 Evidence-to-Screenshot Navigation
 
-The evidence collection is organized so that a reviewer can move from the visual artifact to its corresponding explanation:
+The evidence documentation follows the same numbering system as the screenshot files.
+
+| Evidence | Screenshot | Documentation |
+|---|---|---|
+| 001 | `01-windows-dfir-lab-directory-structure.png` | Evidence 001 |
+| 002 | `02-evidence-artifact-inventory.png` | Evidence 002 |
+| 003 | `03-prefetch-artifact-inventory.png` | Evidence 003 |
+| ... | ... | ... |
+| 135 | `135-windows-dfir-lab-directory-tree-part-2.png` | Evidence 135 |
+| 136 | `136-zimmerman-tools-correlated-execution-timeline.png` | Evidence 136 |
+| 137 | `137-zimmerman-tools-empty-directory-evidence.png` | Evidence 137 |
+
+> **Evidence navigation:** Open the evidence notes to review the explanation for each numbered artifact, then select the corresponding screenshot filename to open the original PNG evidence.
+
+### 📂 Evidence Organization
 
 ```text
-137 Numbered Screenshots
-        │
-        ├── 01 → Evidence explanation
-        ├── 02 → Evidence explanation
-        ├── 03 → Evidence explanation
-        ├── ...
-        ├── 135 → Evidence explanation
-        ├── 136 → Evidence explanation
-        └── 137 → Evidence explanation
-                 │
-                 ▼
-          Forensic Interpretation
-                 │
-                 ▼
-          Investigation Findings
+evidence/
+├── evidence-notes.md
+└── screenshots/
+    ├── 01-*.png
+    ├── 02-*.png
+    ├── 03-*.png
+    ├── ...
+    ├── 135-*.png
+    ├── 136-*.png
+    └── 137-*.png
 
 ---
 

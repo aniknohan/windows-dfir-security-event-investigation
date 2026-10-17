@@ -205,7 +205,7 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 
 ## Evidence 014 — Chrome history and ZimmermanTools timeline
 
-**Screenshot:** [`14-chrome-history-zimmermantoools-timeline.png`](screenshots/14-chrome-history-zimmermantoools-timeline.png)
+**Screenshot:** [`14-chrome-history-zimmermantools-timeline.png`](screenshots/14-chrome-history-zimmermantools-timeline.png)
 
 ### What This Shows
 Documents browser history associated with ZimmermanTools activity.
@@ -533,15 +533,15 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 
 ---
 
-## Evidence 036 — No failed DFIR-Test logons — Event 4625
+## Evidence 036 — No failed DFIR-Test logons during the session — Event 4625
 
-**Screenshot:** [`36-no-failed-logons-dfir-test-4625.png`](screenshots/36-no-failed-logons-dfir-test-4625.png)
+**Screenshot:** [`36-no-failed-logons-during-dfir-test-session-4625.png`](screenshots/36-no-failed-logons-during-dfir-test-session-4625.png)
 
 ### What This Shows
-Documents the referenced negative check for failed logons.
+A negative check: a `Get-WinEvent` query for Event 4625 matching `DFIR-Test` between `2026-08-22 13:36:18` and `13:50:55` (the logon-to-logoff session window) returned no results.
 
 ### Why It Matters
-Helps characterize the authentication sequence as observed.
+Shows that no failed DFIR-Test logons were recorded during the interactive session itself. The search was scoped to the session window only; a failed logon outside that window is documented in Evidence 107 and 108.
 
 ### Evidence Role
 This screenshot belongs to the numbered evidence chain and should be interpreted together with related Security Event, browser, filesystem, PowerShell, Prefetch, LNK, Jump List, ZimmermanTools, timeline, and integrity artifacts where applicable.
@@ -1105,7 +1105,7 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 
 ## Evidence 074 — Linked Logon ID 0x630B8 event correlation
 
-**Screenshot:** [`74-linked-logon-0x630B8-event-correlation.png`](screenshots/74-linked-logon-0x630B8-event-correlation.png)
+**Screenshot:** [`74-linked-logon-0x630b8-event-correlation.png`](screenshots/74-linked-logon-0x630b8-event-correlation.png)
 
 ### What This Shows
 Documents correlation of events sharing the referenced Logon ID.
@@ -1120,7 +1120,7 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 
 ## Evidence 075 — Logon ID 0x630F9 event correlation
 
-**Screenshot:** [`75-logon-id-0x630F9-event-correlation.png`](screenshots/75-logon-id-0x630F9-event-correlation.png)
+**Screenshot:** [`75-logon-id-0x630f9-event-correlation.png`](screenshots/75-logon-id-0x630f9-event-correlation.png)
 
 ### What This Shows
 Documents event correlation using the referenced Logon ID.
@@ -1603,10 +1603,10 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 **Screenshot:** [`107-dfir-test-failed-logon-event-4625.png`](screenshots/107-dfir-test-failed-logon-event-4625.png)
 
 ### What This Shows
-Documents an Event 4625 failed-logon record or related check.
+Event Viewer properties for an Event 4625 (Audit Failure) logged at `2026-08-22 13:29:15`: a failed Logon Type 2 (interactive) attempt for account `DFIR-Test` (domain `ANOHAN`).
 
 ### Why It Matters
-Provides authentication evidence for evaluating failed-logon activity.
+Records a failed interactive logon attempt for DFIR-Test after the account was created (`13:25:37`) and before the successful logon (`13:36:18`). It falls outside the session window searched in Evidence 036.
 
 ### Evidence Role
 This screenshot belongs to the numbered evidence chain and should be interpreted together with related Security Event, browser, filesystem, PowerShell, Prefetch, LNK, Jump List, ZimmermanTools, timeline, and integrity artifacts where applicable.
@@ -1618,10 +1618,10 @@ This screenshot belongs to the numbered evidence chain and should be interpreted
 **Screenshot:** [`108-dfir-test-failed-logon-bad-password-event-4625.png`](screenshots/108-dfir-test-failed-logon-bad-password-event-4625.png)
 
 ### What This Shows
-Documents a failed logon associated with an incorrect password.
+Failure details of the same 13:29:15 Event 4625: reason "Unknown user name or bad password", Status `0xC000006D`, Sub Status `0xC000006A`.
 
 ### Why It Matters
-Provides specific failed-authentication context.
+Sub Status `0xC000006A` indicates the account name was valid but the password was wrong, so this was a bad-password attempt against the existing DFIR-Test account rather than a non-existent user.
 
 ### Evidence Role
 This screenshot belongs to the numbered evidence chain and should be interpreted together with related Security Event, browser, filesystem, PowerShell, Prefetch, LNK, Jump List, ZimmermanTools, timeline, and integrity artifacts where applicable.

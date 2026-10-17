@@ -12,7 +12,7 @@ A hands-on **Windows Digital Forensics and Incident Response (DFIR)** investigat
 
 Every finding is backed by numbered screenshots of the commands and their output, and the log file's integrity is recorded with a SHA-256 hash.
 
-> **Bottom line:** the Security log alone was enough to reconstruct a coherent 17-event sequence for `DFIR-Test`: account setup, a failed bad-password logon, then an interactive session tied together by Logon ID `0xA8119D` of about **14 minutes 37 seconds** (13:36:18 → 13:50:55 on 2026-08-22).
+> **Bottom line:** the Security log alone was enough to reconstruct a coherent 17-event sequence for `DFIR-Test`: account setup, a failed bad-password logon, then an interactive session of about **14 minutes 37 seconds** (13:36:18 → 13:50:55 on 2026-08-22), tied together by Logon ID `0xA8119D`.
 
 ![Correlated DFIR-Test security event timeline](evidence/screenshots/109-dfir-test-correlated-security-event-timeline.png)
 

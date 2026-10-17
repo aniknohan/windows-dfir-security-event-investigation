@@ -4,15 +4,15 @@
 ![Focus](https://img.shields.io/badge/focus-DFIR-c0392b)
 ![Evidence](https://img.shields.io/badge/evidence-Security.evtx-0b5cff)
 ![Screenshots](https://img.shields.io/badge/screenshots-137-0aa)
-![Events](https://img.shields.io/badge/event%20IDs%20correlated-16-6f42c1)
+![Events](https://img.shields.io/badge/event%20IDs%20correlated-17-6f42c1)
 ![Status](https://img.shields.io/badge/status-complete-2ea44f)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-A hands-on **Windows Digital Forensics and Incident Response (DFIR)** investigation that reconstructs the full lifecycle of a local Windows account, `DFIR-Test`, from the **Windows Security event log**. Starting from a raw `Security.evtx` file, I used PowerShell (`Get-WinEvent`) to pull, filter and correlate events by Event ID, timestamp, account name and **Logon ID**, and rebuilt a timeline that runs from account creation through authentication, credential and key activity, account and group discovery, and finally a user-initiated logoff.
+A hands-on **Windows Digital Forensics and Incident Response (DFIR)** investigation that reconstructs the full lifecycle of a local Windows account, `DFIR-Test`, from the **Windows Security event log**. Starting from a raw `Security.evtx` file, I used PowerShell (`Get-WinEvent`) to pull, filter and correlate events by Event ID, timestamp, account name and **Logon ID**, and rebuilt a timeline that runs from account creation through a failed logon attempt, successful authentication, credential and key activity, account and group discovery, and finally a user-initiated logoff.
 
 Every finding is backed by numbered screenshots of the commands and their output, and the log file's integrity is recorded with a SHA-256 hash.
 
-> **Bottom line:** the Security log alone was enough to reconstruct a coherent 16-event sequence for `DFIR-Test`, tied together by Logon ID `0xA8119D`, covering an interactive session of about **14 minutes 37 seconds** (13:36:18 → 13:50:55 on 2026-08-22).
+> **Bottom line:** the Security log alone was enough to reconstruct a coherent 17-event sequence for `DFIR-Test`: account setup, a failed bad-password logon, then an interactive session tied together by Logon ID `0xA8119D` of about **14 minutes 37 seconds** (13:36:18 → 13:50:55 on 2026-08-22).
 
 ![Correlated DFIR-Test security event timeline](evidence/screenshots/109-dfir-test-correlated-security-event-timeline.png)
 
@@ -23,7 +23,7 @@ Reading single Windows events is easy; turning a log full of them into a defensi
 ## Highlights
 
 - **Account lifecycle reconstruction:** six account-management events (4720, 4722, 4724, 4728, 4732, 4738) at `13:25:37` establish how `DFIR-Test` was created and configured.
-- **Authentication analysis:** explicit credential use (4648) and a successful interactive logon (4624) at `13:36:18`.
+- **Authentication analysis:** a failed bad-password logon (4625, Sub Status `0xC000006A`) at `13:29:15`, then explicit credential use (4648) and a successful interactive logon (4624) at `13:36:18`.
 - **Logon ID correlation:** Logon ID `0xA8119D` from the 4624 event is used to tie every later session event, through to the 4647 logoff, back to the same session.
 - **Credential and cryptographic activity:** Credential Manager read (5379), cryptographic operation (5061), key file operation (5058) and key migration (5059) within seconds of logon.
 - **Discovery activity:** Administrators group enumeration (4799), local-account blank-password queries (4797) and user local-group enumeration (4798).
@@ -65,7 +65,7 @@ All 137 screenshots are in [`evidence/screenshots/`](evidence/screenshots/), num
 flowchart LR
     A["Security.evtx<br/>(preserved + SHA-256)"] --> B["Get-WinEvent<br/>filter by Event ID,<br/>time window, account"]
     B --> C["Account lifecycle<br/>4720 · 4722 · 4724<br/>4728 · 4732 · 4738"]
-    B --> D["Authentication<br/>4648 · 4624"]
+    B --> D["Authentication<br/>4625 (failed) · 4648 · 4624"]
     D -->|"Logon ID 0xA8119D"| E["Session pivot"]
     E --> F["Credential & key ops<br/>5379 · 5061 · 5058 · 5059"]
     E --> G["Discovery<br/>4799 · 4797 · 4798"]
@@ -80,7 +80,7 @@ flowchart LR
 1. **Preserve the evidence:** collect `Security.evtx`, record its metadata and SHA-256 hash.
 2. **Survey the log:** event ID frequency and logon-type summaries to understand what the log contains.
 3. **Account lifecycle:** query account-management events for `DFIR-Test` around `13:25:37`.
-4. **Authentication:** locate the 4648 and 4624 events and extract the session's Logon ID (`0xA8119D`).
+4. **Authentication:** locate the failed (4625) and successful (4648, 4624) logon events and extract the session's Logon ID (`0xA8119D`).
 5. **Session correlation:** pivot on that Logon ID to collect credential, cryptographic, discovery and logoff events from the same session.
 6. **Negative checks:** run searches for activity that might be expected (for example process creation) and keep the empty results.
 7. **Supporting artifacts:** review browser, Prefetch, LNK, Jump List, PowerShell and ZimmermanTools evidence for context.
@@ -99,6 +99,7 @@ All times are 2026-08-22, as recorded in [`analysis/security-event-timeline.md`]
 | 13:25:37 | 4728 | Security-enabled global group membership changed |
 | 13:25:37 | 4732 | DFIR-Test added to Builtin Users group |
 | 13:25:37 | 4738 | DFIR-Test account changed |
+| 13:29:15 | 4625 | Failed interactive logon for DFIR-Test (bad password, Sub Status `0xC000006A`) |
 | 13:36:18 | 4648 | Explicit credentials used for DFIR-Test |
 | 13:36:18 | 4624 | Successful interactive logon (Logon ID `0xA8119D`) |
 | 13:36:20 | 5379 | Credential Manager credentials read |
@@ -117,7 +118,7 @@ All times are 2026-08-22, as recorded in [`analysis/security-event-timeline.md`]
 Summarised from [`analysis/investigation-findings.md`](analysis/investigation-findings.md):
 
 1. **Account creation and configuration:** at `13:25:37` the account was created, enabled, had a password reset attempted, had global group membership changed, was added to Builtin Users, and was changed.
-2. **Authentication:** at `13:36:18` explicit credentials were used (4648) and a successful interactive logon was recorded (4624) with Logon ID `0xA8119D`.
+2. **Authentication:** at `13:29:15` a failed interactive logon was recorded (4625); Sub Status `0xC000006A` shows a valid account name with a wrong password. At `13:36:18` explicit credentials were used (4648) and a successful interactive logon was recorded (4624) with Logon ID `0xA8119D`.
 3. **Credential and cryptographic activity:** within seconds of logon, Credential Manager credentials were read (5379), followed by cryptographic, key file and key migration operations (5061, 5058, 5059).
 4. **Account and group discovery:** the session later shows Administrators group enumeration (4799), blank-password queries against local accounts (4797) and user local-group enumeration (4798).
 5. **Session termination:** a user-initiated logoff (4647) at `13:50:55` ends the session.
@@ -141,7 +142,7 @@ windows-dfir-security-event-investigation/
 ## Project Documentation
 
 1. [Investigation Findings](analysis/investigation-findings.md): executive summary, the five key findings and the overall assessment.
-2. [Security Event Timeline](analysis/security-event-timeline.md): the 16-event reconstructed timeline, session summary and key observations.
+2. [Security Event Timeline](analysis/security-event-timeline.md): the 17-event reconstructed timeline, session summary and key observations.
 3. [Evidence Notes](evidence/evidence-notes.md): explanation of every numbered screenshot.
 4. [Evidence Screenshots](evidence/screenshots/): the raw visual evidence record.
 

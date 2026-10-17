@@ -14,6 +14,7 @@ Windows Security event logs were analyzed to reconstruct activity associated wit
 | 2026-08-22 13:25:37 | 4728 | Security-enabled global group membership changed |
 | 2026-08-22 13:25:37 | 4732 | DFIR-Test added to Builtin Users group |
 | 2026-08-22 13:25:37 | 4738 | DFIR-Test account changed |
+| 2026-08-22 13:29:15 | 4625 | Failed interactive logon for DFIR-Test (bad password, Sub Status 0xC000006A) |
 | 2026-08-22 13:36:18 | 4648 | Explicit credentials used for DFIR-Test |
 | 2026-08-22 13:36:18 | 4624 | Successful interactive logon |
 | 2026-08-22 13:36:20 | 5379 | Credential Manager credentials read |
@@ -27,9 +28,9 @@ Windows Security event logs were analyzed to reconstruct activity associated wit
 
 ## Session Summary
 
-The reconstructed activity shows a progression from account creation and configuration to authentication, credential-related activity, cryptographic/key operations, account and group enumeration, and eventual logoff.
+The reconstructed activity shows a progression from account creation and configuration to a failed logon attempt, authentication, credential-related activity, cryptographic/key operations, account and group enumeration, and eventual logoff.
 
-The `DFIR-Test` account was created, enabled, modified, and associated with group membership changes before a successful interactive logon occurred. Following authentication, the timeline records credential-related activity, cryptographic and key-management events, and subsequent local account and group enumeration.
+The `DFIR-Test` account was created, enabled, modified, and associated with group membership changes. A failed bad-password logon attempt was recorded at `13:29:15`, before a successful interactive logon occurred at `13:36:18`. Following authentication, the timeline records credential-related activity, cryptographic and key-management events, and subsequent local account and group enumeration.
 
 The analyzed session associated with `DFIR-Test` lasted approximately 14 minutes and 37 seconds, from the successful logon at `13:36:18` to the user-initiated logoff at `13:50:55`.
 
@@ -39,6 +40,8 @@ This timeline represents a reconstruction of observed Windows Security events. I
 
 - The `DFIR-Test` account was created and enabled before the observed interactive authentication.
 - Account configuration and group-membership changes occurred during the initial setup phase.
+- Event `4625` at `13:29:15` records a failed interactive logon for `DFIR-Test` with a valid account name and an incorrect password (Sub Status `0xC000006A`).
+- No failed `DFIR-Test` logons were found during the session window (`13:36:18`–`13:50:55`).
 - Event `4648` records explicit credential use associated with `DFIR-Test`.
 - Event `4624` records a successful interactive logon.
 - Event `5379` records Credential Manager credential access during the authenticated session.

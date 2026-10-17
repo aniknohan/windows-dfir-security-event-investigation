@@ -4,7 +4,7 @@
 
 Analysis of the Windows Security event log identified a sequence of activity associated with the `DFIR-Test` local account.
 
-The evidence shows account creation and configuration followed by authentication, credential-related activity, security-group enumeration, local-account discovery, and an eventual user-initiated logoff.
+The evidence shows account creation and configuration followed by a failed logon attempt, authentication, credential-related activity, security-group enumeration, local-account discovery, and an eventual user-initiated logoff.
 
 ## Key Findings
 
@@ -22,6 +22,10 @@ At `13:25:37`, Windows recorded several account-management events involving `DFI
 These events establish the creation and initial configuration of the account.
 
 ### 2. Authentication
+
+At `13:29:15`, Event ID 4625 recorded a failed interactive logon (Logon Type 2) for `DFIR-Test`. The failure reason was "Unknown user name or bad password", with Status `0xC000006D` and Sub Status `0xC000006A`. Sub Status `0xC000006A` indicates the account name was valid but the password was incorrect, so this was a bad-password attempt against the existing account.
+
+No further failed logons for `DFIR-Test` were found during the session window (`13:36:18`–`13:50:55`).
 
 At `13:36:18`, Event ID 4648 recorded the use of explicit credentials associated with `DFIR-Test`.
 
@@ -62,6 +66,6 @@ The reconstructed session from successful logon to logoff lasted approximately *
 
 ## Assessment
 
-The Windows Security log provides sufficient evidence to reconstruct a coherent sequence of account-management, authentication, credential-related, discovery, and logoff activity associated with `DFIR-Test`.
+The Windows Security log provides sufficient evidence to reconstruct a coherent sequence of account-management, failed and successful authentication, credential-related, discovery, and logoff activity associated with `DFIR-Test`.
 
 The investigation demonstrates the use of Windows Event IDs, timestamps, account identifiers, and Logon ID correlation to reconstruct activity from a Windows Security event log.
